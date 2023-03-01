@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        *{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+.fa{
+    font-family: FontAwesome !important;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+}
+.bg{
+    position: fixed;
+    background-image: url('https://i.ibb.co/XFh04tD/bg.jpg');
+    background-size:100% 100%;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+    filter: blur(20px);
+    transform: scale(1.6);
+    opacity: 0.8;
+}
+
+.cn {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup_bx_cn{
+    width: 500px;
+    max-width: 100%;
+    height: calc(100vh - 50px);
+    max-height: 700px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 7px;
+}
+.popup_bx {
+    position: relative;
+    padding: 3px 8px;
+    width: 100%;
+    height: 100%;
+    border: 2px double rgba(0, 0, 0, 0.078);
+    border-radius: 7px;
+}
+.header{
+    height: 30px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    font-size: 0.9em;
+    /* position: absolute; */
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 3px;
+}
+.header *{
+    height: 100%;
+}
+.header .left_box input{
+    display: inline;
+    width: auto;
+    border: none;
+    padding: auto 7px;
+    outline: none;
+    padding-left: 10px;
+    text-align: left;
+    
+}
+.header .right_box {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+.header .right_box input{
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.078);
+    outline: none;
+    border-radius: 0px;
+    padding-right: 30px;
+    transition: 0.3s;
+    padding-left: 7px;
+    
+}
+.header .right_box input:focus{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+.header .right_box button{
+    background: transparent;
+    border: 0px;
+    position: absolute;
+    right: 3px;
+    width: 30px;
+    cursor: pointer;
+}
+.header .right_box button i{
+    height: auto;
+}
+.footer{
+    font-size: 0.8em;
+    font-style: italic;
+    text-align: center;
+    /* position: absolute; */
+    bottom: 0px;
+    width: 100%;
+    left: 0px;
+    color:rgb(165, 165, 165);
+    height: 25px;
+}
+.footer a{
+    font-style:normal;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color:red;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.message_cn{
+    height: calc(100% - 50px);
+    width: 100%;
+    position: relative;
+}
+.message_box{
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    /* height: 50px; */
+}
+.message_box textarea {
+    resize: none;
+    min-height: 25px;
+    height: 25px;
+    padding: 5px 8px;
+    width: calc( 100% - 50px);
+    max-height: 50px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.message_box textarea::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+.message_box button{
+    position: absolute;
+    border: none;
+    background: dodgerblue;
+    color: white;
+    width: 40px;
+    height: 26px;
+    float: right;
+    cursor: pointer;
+    border-radius: 3px;
+    right: 0px;
+    bottom: 0px;
+
+}
+.message_box textarea:focus{
+    border-bottom: 1px solid rgba(0,0,0,0.4);
+}
+
+
+.message_log{
+    font-size: 0.9em;
+    height: calc(100% - 110px);
+    overflow-x: hidden;
+    padding-top: 20px;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+}
+
+.message_log::-webkit-scrollbar {
+    display: none;
+}
+.message_log > div{
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 7px;
+}
+.message_log > span{
+    display: block;
+    width: fit-content;
+    max-width: 80%;
+    margin: 0px auto;
+}
+.message_log .p2{
+    justify-content: flex-end;
+}
+
+.message_log .p1 span{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.message_log .p2 span{
+    color: white;
+    background: dodgerblue;
+    
+}
+.message_log .p2 span,
+.message_log .p1 span{
+    padding: 3px 8px;
+    border-radius: 30px;
+}
+.message_log .log_text{
+    margin: 0px auto;
+    font-size: 0.8em;
+    padding: 3px 6px;
+    border-radius: 20px;
+    text-align: center;
+    z-index: 2;
+    /* white-space: pre; */
+}
+.message_log .log_text::before,
+.message_log .log_text::after{
+    content: '------';
+    /* width: 100px; */
+    height: 1px;
+    position: relative;
+    left: 10px;
+    opacity: 0.5;
+    letter-spacing: 3px;
+    z-index: 1;
+    padding-right: 15px;
+}
+
+.message_cn .label{
+    height: 40px;
+    display: flex;
+    width: 100%;
+    font-size: 1.3em;
+    position: relative;
+    justify-content: flex-start;
+    padding-top: 13px;
+}
+.message_cn .overlay{
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    z-index: 5;
+    cursor: not-allowed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:red;
+    font-weight: bold;
+    font-style: italic;
+    opacity: 0.7;
+    font-size: 1.3em;
+    letter-spacing: 0.3px;
+}
+.message_cn #status{
+    width: 7px;
+    border-radius: 10px;
+    display: block;
+    position: relative;
+    height: 7px;
+    background: red;
+}
+    </style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="cn">
+    <div class="popup_bx_cn">
+    <div class="popup_bx">
+        <div class="header">
+            <div class="left_box">
+                <label>ID:</label><input type="text" id="id_key" value="xxxxxxx" readonly>
+            </div>
+            <div class="right_box">
+                <form id="partner_id_form">
+                    <input type="text" id='partner_id' placeholder='xxxxxxxx'>
+                    <button><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="message_cn">
+            <div class="overlay">No Partner Connected</div>
+            <div class="label">Messages<span id="status"></span></div>
+            <div class="message_log">
+                <!-- <div  class="p1"><span>Hi</span></div>
+                
+                <span class="log_text">This is a test</span>
+                <div  class="p2"><span>Hlw</span></div> -->
+
+            </div>
+            <div class="message_box">
+                <form id="message_box_form">
+                    <textarea placeholder='Write Something !!!' id="message" oninput='textarea_act(this)'></textarea>
+                    <button><i class="fa fa-send"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer">Application Developed By <a href='mailto:only.coder000@gmail.com'>@onlycoder</a></div>
+    </div>
+    </div>
+</div>
+
+<script>
+    function textarea_act(element){
+        element.style.height = (element.scrollHeight)+"px"; if(! element.value ){ element.style.height="0px"}
+    }
+    // textarea auto height
+
+    function write_message(person=1,msg=false){
+        /*
+        1= me
+        2= you
+        */
+        if(msg && person==1 || msg && person==2 ){
+            var p=document.createElement('div');
+            p.classList.add('p'+person);
+            var s=document.createElement('span');
+            s.innerHTML = msg;
+            p.appendChild(s);
+            document.querySelector('.message_log').appendChild(p);
+        }
+        else{
+            write_log("can't write empty message");
+        }
+        scroll_buttom_to_log();
+    }
+    // write message to frontend
+
+    function write_log(msg=false){
+        if(msg){
+            var p=document.createElement('span');
+            p.classList.add('log_text');
+            p.innerHTML = msg;
+            document.querySelector('.message_log').appendChild(p);
+        }
+        else{
+            alert("can't write empty log");
+        }
+        scroll_buttom_to_log();
+    }
+    // write log to frontend
+
+
+
+    function scroll_buttom_to_log(){
+        var objDiv = document.querySelector(".message_log");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
+
+    // scroll_message_buttom
+    
+
+    var peer = new Peer();
+    peer.on('open', function(id) {
+	    document.querySelector('#id_key').value=id;
+        init_triggers();
+    });
+    // showing the id to js
+
+    function init_triggers(){
+        document.querySelector('#partner_id_form').onsubmit=(e)=>{
+            e.preventDefault();
+            connect_peer();
+        }
+    }
+    // init triggers after peer setup
+    function connect_peer(){
+        var vl=document.querySelector('#partner_id').value;
+        if(vl){
+            var conn = peer.connect(vl);
+            conn.on('open', function() {
+                document.querySelector('.message_cn .overlay').style.display = 'none';
+                document.querySelector('#status').style.background='green';
+                write_log("connected to "+conn.peer);
+                send_message_trigger(conn);
+            });
+            conn.on('data', function(data) {
+                write_message('1',data);
+            });
+            conn.on('disconnect', function(){
+                write_log("disconnected from "+conn.peer);
+                document.querySelector('.message_cn .overlay').style.display = 'flex';
+                document.querySelector('#status').style.background='red';
+            });
+            conn.on('close', function(){
+                write_log("closed from "+conn.peer);
+                document.querySelector('.message_cn .overlay').style.display = 'flex';
+                document.querySelector('#status').style.background='red';
+            });
+            conn.on('error', function(){
+                conn.close();
+                write_log("error from "+conn.peer);
+                document.querySelector('.message_cn .overlay').style.display = 'flex';
+                document.querySelector('#status').style.background='red';
+            });
+        }
+        else{
+            alert('Partner ID is required');
+        }
+    }
+    // connect peer
+
+    peer.on('connection', function(conn) { 
+        write_log("connected to "+conn.peer);
+        document.querySelector('.message_cn .overlay').style.display = 'none';
+        document.querySelector('#status').style.background='green';
+        send_message_trigger(conn);
+        conn.on('data', function(data) {
+            write_message('1',data);
+        });
+        conn.on('disconnect', function(){
+            write_log("disconnected from "+conn.peer);
+            document.querySelector('.message_cn .overlay').style.display = 'flex';
+            document.querySelector('#status').style.background='red';
+        });
+        conn.on('close', function(){
+            write_log("closed from "+conn.peer);
+            document.querySelector('.message_cn .overlay').style.display = 'flex';
+            document.querySelector('#status').style.background='red';
+        });
+        conn.on('error', function(){
+            conn.close();
+            write_log("error from "+conn.peer);
+            document.querySelector('.message_cn .overlay').style.display = 'flex';
+            document.querySelector('#status').style.background='red';
+        });
+    });
+    // peer 
+
+
+    function send_message_trigger(conn){
+        document.querySelector('#message_box_form').onsubmit=(e)=>{
+            e.preventDefault();
+            var vl=document.querySelector('#message').value;
+            if(vl){
+                conn.send(vl);
+                write_message('2',vl);
+                document.querySelector('#message_box_form').reset();
+            }else{
+                write_log("can't write empty message");
+            }
+        }
+    }
+
+    
+</script>
+</body>
+</html>
